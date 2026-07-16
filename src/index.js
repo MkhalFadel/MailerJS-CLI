@@ -6,6 +6,7 @@ const { default: chalk } = require("chalk");
 const confirm = require("@inquirer/confirm").default;
 const validator = require("validator");
 const { showSummary } = require("./utils/utils");
+const locateConfigFile = require("./services/configService");
 
 
 async function main() {
@@ -40,6 +41,8 @@ async function main() {
 
       showSummary(email)
 
+      console.log('HOMEDIRECORYJOINED: ', await locateConfigFile());
+      
       const send = await confirm({
             message: chalk.cyan("Send emails?"),
             default: true

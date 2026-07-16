@@ -1,6 +1,7 @@
 const { default: chalk } = require("chalk");
 const fs = require("fs/promises")
 const path = require("path");
+const providers = require("../config/providers")
 
 function showSummary(data)
 {
@@ -49,29 +50,29 @@ async function validateFiles(filePath)
 }
 
 function resolveFilePath(filePath) {
-   const input = filePath.trim();
+      const input = filePath.trim();
 
-   // Empty input = no attachment
-   if (!input) {
-      return null;
-   }
+      // Empty input = no attachment
+      if (!input) 
+            return null;
 
-   // Expand "~" to the user's home directory
-   if (input.startsWith("~")) {
-      return path.join(process.env.HOME || process.env.USERPROFILE, input.slice(1));
-   }
+      // Expand "~" to the user's home directory
+      if (input.startsWith("~")) 
+            return path.join(process.env.HOME || process.env.USERPROFILE, input.slice(1));
+      
 
-   // Absolute path
-   if (path.isAbsolute(input)) {
-      return path.normalize(input);
-   }
+      // Absolute path
+      if (path.isAbsolute(input)) 
+            return path.normalize(input);
+      
 
-   // Relative path
-   return path.resolve(process.cwd(), input);
+      // Relative path
+      return path.resolve(process.cwd(), input);
 }
 
-   module.exports = {
-      resolveFilePath,
-};
+function getProvider(provider)
+{
+      return providers[provider];
+}
 
-module.exports = {validateFiles, showSummary}
+module.exports = {validateFiles, showSummary, resolveFilePath, getProvider}

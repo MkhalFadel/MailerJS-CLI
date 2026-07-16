@@ -1,13 +1,15 @@
+const { default: chalk } = require("chalk");
+
 function success(message) {
-   console.log(`✔ ${message}`);
+   console.log(chalk.green(`✔ ${message}`));
 }
 
 function error(message) {
-   console.log(`✖ ${message}`);
+   console.log(chalk.red(`✖ ${message}`));
 }
 
 function info(message) {
-   console.log(`ℹ ${message}`);
+   console.log(chalk.blue(`ℹ ${message}`));
 }
 
 module.exports = {

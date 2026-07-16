@@ -71,7 +71,6 @@ async function getAttachment() {
          name: "attachment",
          message: "Enter file path:",
          async validate(input){
-            console.log([input])
             const result = await validateFiles(input);
             return result.isValid ? true : result.error
          }
@@ -104,4 +103,5 @@ module.exports = {
    getMessage,
    getAttachment,
    getRecipient,
+   section
 };

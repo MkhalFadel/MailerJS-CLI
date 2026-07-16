@@ -2,7 +2,7 @@ const fs = require("fs");
 const validator = require("validator");
 
 function isValidEmail(email) {
-   return validator.isEmail(email);
+   return validator.isEmail(email.trim());
 }
 
 function attachmentExists(path) {

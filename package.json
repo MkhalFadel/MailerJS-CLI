@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "mailer": "./src/index.js"
+    "mailer": "./src/index.js",
+    "mailer config": "./src/commands/config.js"
   },
   "scripts": {
     "start": "nodemon src/index.js"
