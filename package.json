@@ -14,8 +14,8 @@
     "url": "git+https://github.com/MkhalFadel/MailerJS-CLI.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "MkhalFadel",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/MkhalFadel/MailerJS-CLI/issues"
