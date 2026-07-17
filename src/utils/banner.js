@@ -7,6 +7,7 @@ function showBanner() {
    console.log(
       chalk.cyan(
          figlet.textSync("MailerJS", {
+               font: 'ANSI Shadow',
                horizontalLayout: "default",
                verticalLayout: "default",
          })

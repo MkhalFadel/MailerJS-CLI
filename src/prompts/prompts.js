@@ -1,15 +1,10 @@
 const inquirer = require("inquirer");
 const readline = require("readline");
 const chalk = require("chalk").default;
-const { validateFiles } = require("../utils/utils");
+const confirm = require("@inquirer/confirm").default;
+const { validateFiles, section } = require("../utils/utils");
 
 const prompt = inquirer.createPromptModule();
-
-function section(title) {
-   console.log();
-   console.log(chalk.cyan.bold(title));
-   console.log(chalk.gray("─".repeat(title.length)));
-}
 
 async function getSubject() {
    section("Email Subject");
@@ -65,6 +60,15 @@ async function getMessage() {
 async function getAttachment() {
    section("Attachment");
 
+   const include = await confirm({
+      message: chalk.cyan("Include attachment?"),
+      default: true
+   })
+
+   if(!include)
+      return null;
+   
+   let validationResult;
    const { attachment } = await prompt([
       {
          type: "input",
@@ -72,12 +76,13 @@ async function getAttachment() {
          message: "Enter file path:",
          async validate(input){
             const result = await validateFiles(input);
-            return result.isValid ? true : result.error
+            validationResult = result
+            return validationResult.isValid ? true : result.error
          }
       },
    ]);
 
-   return attachment;
+   return validationResult.path;
 }
 
 let recipientNumber = 1;

@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const confirm = require("@inquirer/confirm").default;
 const select = require("@inquirer/select").default;  
 const { default: chalk } = require("chalk");
-const { section } = require("./prompts");
+const { section } = require("../utils/utils");
 const { isValidEmail } = require("../utils/validator");
 
 const prompt = inquirer.createPromptModule();

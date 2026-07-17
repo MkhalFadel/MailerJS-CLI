@@ -9,21 +9,6 @@ const { getSmtpUsername,
       getCustomSmtpPort,
       getCustomSmtpHost } = require("../prompts/configPrompts")
 
-const userConfig = {
-   provider: '',   
-   smtp: {
-      host: "",
-      port: 587,
-      secure: false,
-      username: "",
-      password: "",
-   },
-   sender: {
-      name: "",
-      email: ""
-   }
-}
-
 async function runConfig()
 {
    let host;
@@ -72,10 +57,7 @@ async function runConfig()
       throw error;
    }
 
-   loadConfig()
-
+   await loadConfig()
 }
 
-runConfig()
-
-module.exports = userConfig;
+module.exports = runConfig;

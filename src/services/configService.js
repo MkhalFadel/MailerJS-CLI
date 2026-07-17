@@ -104,7 +104,6 @@ async function loadConfig()
 
       const configData = JSON.parse(fileContent)
 
-      console.log(configData);
       return configData;
    } catch (error) {
       throw error;

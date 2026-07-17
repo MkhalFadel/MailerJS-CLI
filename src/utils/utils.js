@@ -3,6 +3,12 @@ const fs = require("fs/promises")
 const path = require("path");
 const providers = require("../config/providers")
 
+function section(title) {
+      console.log();
+      console.log(chalk.cyan.bold(title));
+      console.log(chalk.gray("─".repeat(title.length)));
+}
+
 function showSummary(data)
 {
       console.log(chalk.gray("─".repeat(15)));
@@ -24,7 +30,7 @@ function showSummary(data)
 }
 
 async function validateFiles(filePath)
-{
+{     
       try{
             const absolutePath = resolveFilePath(filePath);
 
@@ -75,4 +81,16 @@ function getProvider(provider)
       return providers[provider];
 }
 
-module.exports = {validateFiles, showSummary, resolveFilePath, getProvider}
+function emailFormatter(data)
+{
+      const formattedData = {
+            to: "",
+            subject: data.subject,
+            message: data.message,
+            attachment: data.attachment
+      }
+
+      return formattedData;
+}
+
+module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter}
