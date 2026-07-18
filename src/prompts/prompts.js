@@ -1,7 +1,6 @@
 const inquirer = require("inquirer");
 const readline = require("readline");
-const chalk = require("chalk").default;
-const confirm = require("@inquirer/confirm").default;
+const chalk = require("chalk");
 const { validateFiles, section, getFilePath } = require("../utils/utils");
 
 const prompt = inquirer.createPromptModule();
@@ -60,7 +59,9 @@ async function getMessage() {
 async function getAttachment() {
    section("Attachment");
 
-   const include = await confirm({
+   const { include } = await prompt({
+      type: 'confirm',
+      name: 'include',
       message: chalk.cyan("Include attachment?"),
       default: true
    })

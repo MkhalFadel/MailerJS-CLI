@@ -1,6 +1,6 @@
 const { showBanner } = require("../utils/banner");
 const { section } = require("../utils/utils");
-const { default: chalk } = require("chalk");
+const chalk = require("chalk");
 
 function runHelp() {
    showBanner();

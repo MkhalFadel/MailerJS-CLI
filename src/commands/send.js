@@ -1,13 +1,14 @@
 const { showBanner } = require("../utils/banner");
 const { getSubject, getMessage, getAttachment, getRecipient, section } = require("../prompts/prompts");
-const { default: chalk } = require("chalk");
-const confirm = require("@inquirer/confirm").default;
-const select = require("@inquirer/select").default;  
+const chalk = require("chalk");
+const inquirer = require("inquirer")
 const { showSummary, emailFormatter } = require("../utils/utils");
 const { loadConfig } = require("../services/configService");
 const { sendEmail, createTransporter } = require("../services/emailService");
 const { success, error, info } = require("../utils/logger");
 const { acceptManualRecipients, acceptImportedRecipients } = require("../services/recipientService");
+
+const prompt = inquirer.createPromptModule();
 
 async function runSend() {
       showBanner();
@@ -20,7 +21,9 @@ async function runSend() {
       }
 
       section("Recipients");
-      const addingMethod = await select({
+      const { addingMethod } = await prompt({
+            type: 'list',
+            name: 'addingMethod',
             message: "How would you like to add recipients?",
             choices: [
                   {
@@ -45,7 +48,9 @@ async function runSend() {
 
       showSummary(email)
 
-      const send = await confirm({
+      const { send } = await prompt({
+            type: 'confirm',
+            name: 'send',
             message: chalk.cyan("Send emails?"),
             default: true
       })
@@ -72,6 +77,7 @@ async function runSend() {
                   } catch (err) {
                         currentRecipient.status = 'failed';
                         totalFailed++;
+                        console.log(err)
                   }
             }
             
