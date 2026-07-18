@@ -1,8 +1,6 @@
 const providers = require("../config/providers")
 const inquirer = require("inquirer");
-const confirm = require("@inquirer/confirm").default;
-const select = require("@inquirer/select").default;  
-const { default: chalk } = require("chalk");
+const chalk = require("chalk");
 const { section } = require("../utils/utils");
 const { isValidEmail } = require("../utils/validator");
 
@@ -14,7 +12,9 @@ async function getSmtpProvider()
 {
    section('SMTP Host')
 
-   const smtpProvider = await select({
+   const { smtpProvider } = await prompt({
+      type: 'list',
+      name: "smtpProvider",
       message: chalk.cyan("Select SMTP Provider:"),
       choices: providersList
    })
@@ -107,7 +107,9 @@ async function getCustomSmtpSecure()
 {
    section("Secure");
 
-   const secure = await confirm({
+   const { secure } = await prompt({
+      type: 'confirm',
+      name: 'secure',
       message: "Use SSL/TLS?",
       default: true
    });

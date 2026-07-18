@@ -1,5 +1,5 @@
 const figlet = require("figlet");
-const chalk = require("chalk").default;
+const chalk = require("chalk");
 
 function showBanner() {
    console.clear();

@@ -1,4 +1,4 @@
-const { default: chalk } = require("chalk");
+const chalk = require("chalk");
 const fs = require("fs/promises")
 const path = require("path");
 const providers = require("../config/providers")

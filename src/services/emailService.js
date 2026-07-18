@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer")
-const ora = require("ora").default;
+const ora = require("ora");
 
 function createTransporter(config)
 {
@@ -25,7 +25,6 @@ async function verifyConnection(config)
 
 async function sendEmail(config, emailData, transporter)
 {
-
    const spinner = ora(`Sending email to ${emailData.to}`).start();
 
    let attachment = [];
