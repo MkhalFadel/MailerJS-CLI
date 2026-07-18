@@ -23,56 +23,51 @@
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-- 📧 Interactive email sending
-- 👥 Multiple recipients
-- 📎 File attachment support
-- ⚡ SMTP connection testing
-- ⚙️ Persistent configuration
-- 🖥️ Beautiful interactive CLI
-- 🎨 Colored terminal output
-- ⏳ Progress spinners
-- 📋 Sending summary
-- 🔒 Secure SMTP authentication
-- 🌐 Built-in SMTP provider presets
-- 🛠 Custom SMTP server support
-
----
-
-## Supported Providers
-
-- Gmail
-- Outlook
-- Yahoo
-- Zoho Mail
-- iCloud
-- Custom SMTP
+* 📧 Interactive email sending
+* 👥 Send to multiple recipients
+* 📄 Import recipients from TXT files
+* 📎 File attachment support
+* ⚙️ One-time SMTP configuration
+* ⚡ SMTP connection testing
+* 🌐 Built-in SMTP provider presets
+* 🛠 Custom SMTP server support
+* ✅ Automatic email validation
+* 🔄 Automatic duplicate removal
+* 🎨 Beautiful interactive CLI
+* ⏳ Progress spinners
+* 📋 Sending summary
+* 🔒 Secure SMTP authentication
+* 💾 Persistent local configuration
 
 ---
 
-## Installation
+# Supported Providers
 
-### npm
+* Gmail
+* Outlook
+* Yahoo
+* Zoho Mail
+* iCloud
+* Custom SMTP
+
+---
+
+# Installation
 
 ```bash
 npm install -g mailerjs-cli
 ```
 
-or
-
-```bash
-npm install --global mailerjs-cli
-```
-
 ---
 
-## Requirements
+# Requirements
 
-- Node.js 18+
-- npm
+* Node.js 18+
+* npm
 
-Check your version:
+Verify your installation:
 
 ```bash
 node -v
@@ -83,51 +78,72 @@ npm -v
 
 # Quick Start
 
-### Configure SMTP
+Configure your SMTP account:
 
 ```bash
 mailer config
 ```
 
-Configure your email account once.
-
----
-
-### Test SMTP
+Test your configuration:
 
 ```bash
 mailer test
 ```
 
-Verify your SMTP credentials.
-
----
-
-### Send Emails
+Start MailerJS:
 
 ```bash
 mailer
 ```
 
-The CLI will guide you through:
+During the interactive session you can:
 
-- Subject
-- Message
-- Attachment
-- Recipients
-- Confirmation
+* Enter recipients manually.
+* Import recipients from a TXT file.
+* Attach a file.
+* Review everything before sending.
 
 ---
 
-## Commands
+# Commands
 
-| Command | Description |
-|----------|-------------|
-| `mailer` | Start the interactive email sender |
-| `mailer config` | Configure SMTP credentials |
-| `mailer test` | Test SMTP connection |
-| `mailer help` | Display help information |
-| `mailer version` | Display installed version |
+| Command          | Description                        |
+| ---------------- | ---------------------------------- |
+| `mailer`         | Start the interactive email sender |
+| `mailer config`  | Configure SMTP settings            |
+| `mailer test`    | Verify SMTP connection             |
+| `mailer help`    | Show available commands            |
+| `mailer version` | Display installed version          |
+
+---
+
+# Importing Recipients
+
+MailerJS can import recipients directly from a plain text file.
+
+Example:
+
+```text
+john@example.com
+jane@example.com
+alex@example.com
+support@example.com
+```
+
+Rules:
+
+* One email address per line
+* Blank lines are ignored
+* Invalid email addresses are skipped automatically
+* Duplicate email addresses are removed automatically
+* Email addresses are normalized before validation
+
+After importing, MailerJS displays a summary including:
+
+* Total recipients
+* Valid email addresses
+* Invalid email addresses
+* Duplicates removed
 
 ---
 
@@ -139,17 +155,28 @@ $ mailer
 ✔ Subject
 ✔ Message
 ✔ Attachment
-✔ Recipient #1
-✔ Recipient #2
+
+How would you like to add recipients?
+
+❯ Import from TXT file
+
+Enter file path:
+~/emails.txt
+
+Recipients Imported
+
+Total: 120
+Valid: 117
+Invalid: 2
+Duplicates removed: 1
 
 Email Review
 
 Subject:
-Project Update
+Summer Newsletter
 
 Recipients:
-john@example.com
-jane@example.com
+117
 
 Send emails? Yes
 
@@ -161,8 +188,8 @@ Sending email to jane@example.com...
 
 Summary
 
-Total Emails: 2
-Sent: 2
+Total Emails: 117
+Sent: 117
 Failed: 0
 ```
 
@@ -172,25 +199,25 @@ Failed: 0
 
 Google no longer allows SMTP login using your normal account password.
 
-You must generate an **App Password**.
-
-Steps:
+To use Gmail:
 
 1. Enable Two-Factor Authentication.
-2. Generate an App Password.
-3. Use the generated password inside:
+2. Create an App Password.
+3. Run:
 
 ```bash
 mailer config
 ```
 
+4. Use your Gmail address and the generated App Password.
+
 ---
 
 # Configuration
 
-MailerJS stores your configuration locally.
+MailerJS stores its configuration locally inside your home directory.
 
-Typical configuration:
+Example configuration:
 
 ```json
 {
@@ -213,26 +240,27 @@ Typical configuration:
 
 # Built With
 
-- Node.js
-- Nodemailer
-- Inquirer
-- Chalk
-- Ora
-- Figlet
+* Node.js
+* Nodemailer
+* Inquirer
+* Chalk
+* Ora
+* Figlet
+* Validator.js
 
 ---
 
 # Roadmap
 
-- HTML email support
-- Email templates
-- CC / BCC
-- Multiple attachments
-- CSV recipient import
-- Default attachment directory
-- Verbose mode
-- Scheduling emails
-- Configuration editor
+* HTML email support
+* Email templates
+* CSV recipient import
+* Multiple attachments
+* Default attachment directory
+* CC / BCC support
+* Scheduled emails
+* Verbose mode
+* Configuration editor
 
 ---
 
@@ -262,8 +290,6 @@ npm link
 
 Contributions are welcome.
 
-If you'd like to improve MailerJS-CLI:
-
 1. Fork the repository.
 2. Create a feature branch.
 3. Commit your changes.
@@ -273,24 +299,20 @@ If you'd like to improve MailerJS-CLI:
 
 # License
 
-Licensed under the MIT License.
+This project is licensed under the MIT License.
 
-See the LICENSE file for more information.
+See the **LICENSE** file for details.
 
 ---
 
 # Author
 
-**MkhalFadel**
+**Mkhal Fadel**
 
-GitHub
-
-https://github.com/MkhalFadel
+GitHub: https://github.com/MkhalFadel
 
 ---
 
-## Support
+# Support
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
-
-It helps the project grow and motivates future development.
+If you find MailerJS-CLI useful, consider giving the repository a ⭐ on GitHub. It helps others discover the project and supports future development.

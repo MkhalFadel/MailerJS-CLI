@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const readline = require("readline");
 const chalk = require("chalk").default;
 const confirm = require("@inquirer/confirm").default;
-const { validateFiles, section } = require("../utils/utils");
+const { validateFiles, section, getFilePath } = require("../utils/utils");
 
 const prompt = inquirer.createPromptModule();
 
@@ -68,21 +68,9 @@ async function getAttachment() {
    if(!include)
       return null;
    
-   let validationResult;
-   const { attachment } = await prompt([
-      {
-         type: "input",
-         name: "attachment",
-         message: "Enter file path:",
-         async validate(input){
-            const result = await validateFiles(input);
-            validationResult = result
-            return validationResult.isValid ? true : result.error
-         }
-      },
-   ]);
+   const result = await getFilePath()
 
-   return validationResult.path;
+   return result.path;
 }
 
 let recipientNumber = 1;
