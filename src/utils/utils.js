@@ -2,6 +2,9 @@ const { default: chalk } = require("chalk");
 const fs = require("fs/promises")
 const path = require("path");
 const providers = require("../config/providers")
+const inquirer = require("inquirer");
+
+const prompt = inquirer.createPromptModule()
 
 function section(title) {
       console.log();
@@ -93,4 +96,23 @@ function emailFormatter(data)
       return formattedData;
 }
 
-module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter}
+async function getFilePath()
+{
+      let validationResult;
+            const { attachment } = await prompt([
+            {
+                  type: "input",
+                  name: "attachment",
+                  message: "Enter file path:",
+                  async validate(input){
+                  const result = await validateFiles(input);
+                  validationResult = result
+                  return validationResult.isValid ? true : result.error
+                  }
+            },
+      ]);
+
+      return validationResult;
+}
+
+module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter, getFilePath}

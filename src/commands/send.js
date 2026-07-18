@@ -2,39 +2,45 @@ const { showBanner } = require("../utils/banner");
 const { getSubject, getMessage, getAttachment, getRecipient, section } = require("../prompts/prompts");
 const { default: chalk } = require("chalk");
 const confirm = require("@inquirer/confirm").default;
-const validator = require("validator");
+const select = require("@inquirer/select").default;  
 const { showSummary, emailFormatter } = require("../utils/utils");
 const { loadConfig } = require("../services/configService");
 const { sendEmail, createTransporter } = require("../services/emailService");
 const { success, error, info } = require("../utils/logger");
+const { acceptManualRecipients, acceptImportedRecipients } = require("../services/recipientService");
 
 async function runSend() {
       showBanner();
 
-      const email = {
+      let email = {
             subject: await getSubject(),
             message: await getMessage(),
             attachment: await getAttachment(),
             recipients: []
       }
 
-      while (true) {
-            const recipient = await getRecipient();
-            
-            if (recipient.trim() === "") break;
-            
-            if(validator.isEmail(recipient))
-            {
-                  email.recipients.push({
-                        email: recipient,
-                        status: "pending"
-                  });
-                  
-                  console.log(`Would send email to ${recipient}`);
-            }else{
-                  console.log("Invalid Email..");
-            }
+      section("Recipients");
+      const addingMethod = await select({
+            message: "How would you like to add recipients?",
+            choices: [
+                  {
+                        name: "Enter manually",
+                        value: "manual"
+                  },
+                  {
+                        name: 'Import from TXT file',
+                        value: 'import'
+                  }
+            ]
+      });
+      
 
+      if(addingMethod === "manual")
+      {
+            email = await acceptManualRecipients(email)
+      }
+      else{
+            email = await acceptImportedRecipients(email);
       }
 
       showSummary(email)
@@ -74,7 +80,6 @@ async function runSend() {
             success(`Sent: ${totalSuccess}`);
             error(`Failed: ${totalFailed}`);
       }
-
 }
 
 module.exports = runSend;
