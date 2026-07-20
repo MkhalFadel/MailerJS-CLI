@@ -51,7 +51,7 @@ async function getAttachment() {
    
    const result = await getFilePath()
 
-   return result.path;
+   return result.filePath;
 }
 
 let recipientNumber = 1;

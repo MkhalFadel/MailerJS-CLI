@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 const fs = require("fs").promises
-const path = require("path");
+const path = require("path")
 const providers = require("../config/providers")
 const inquirer = require("inquirer");
 const { error } = require("../utils/logger")
@@ -45,7 +45,7 @@ async function validateFiles(filePath)
             if(!stats.isFile())
                   return { isValid: false, error: "The provided path points to a directory, not a file." };
 
-            return {isValid: true, path: absolutePath}
+            return {isValid: true, filePath: absolutePath}
 
       }catch(error)     
       {
@@ -116,12 +116,23 @@ async function getFilePath()
       return validationResult;
 }
 
-async function readFile()
+async function readFile(allowedExtension)
 {
+      let data;
+
       while(true)
       {
-            const { path } = await getFilePath();
-            const data = await fs.readFile(path, 'utf8');
+            const { filePath } = await getFilePath();
+            
+            const fileName = path.basename(filePath);
+
+            if(allowedFileType(fileName, allowedExtension))
+                  data = await fs.readFile(filePath, 'utf8');
+            else
+            {
+                  error(`Invalid file type, File type should be ${allowedExtension}`);
+                  continue;
+            }
 
             if(data.trim() === '')
             {
@@ -133,4 +144,9 @@ async function readFile()
       }
 }
 
-module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter, getFilePath, readFile}
+function allowedFileType(filename, allowedExtension) {
+      const ext = path.extname(filename).toLowerCase(); // Extracts extension e.g., '.png'
+      return ext === allowedExtension ? true : false;
+}
+
+module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter, getFilePath, readFile, allowedFileType}

@@ -1,6 +1,6 @@
 const { isValidEmail } = require("../utils/validator");
 const { getRecipient } = require("../prompts/prompts")
-const { section } = require("../utils/utils");
+const { section, allowedFileType, readFile } = require("../utils/utils");
 const { success, error, info } = require("../utils/logger");
 const validator = require("validator");
 const fs = require("fs").promises;
@@ -8,7 +8,7 @@ const chalk = require("chalk")
 
 async function acceptManualRecipients(email)
 {
-   console.log(chalk.grey("When you finish adding recipients press Enter..."));
+   console.log(chalk.grey("\nWhen you finish adding recipients press Enter...\n"));
    while (true) {
                   const recipient = await getRecipient();
                   
@@ -31,7 +31,7 @@ async function acceptManualRecipients(email)
 
 async function acceptImportedRecipients(email)
 {
-      const data = await readFile();
+      const data = await readFile(".txt");
 
       const formattedEmails = parseRecipients(data);
       email.recipients = formattedEmails;
