@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
-const readline = require("readline");
 const chalk = require("chalk");
+const { acceptPlainMessages, acceptHTMLMessages, getMessageFormat } = require("./messagePrompts");
 const { validateFiles, section, getFilePath } = require("../utils/utils");
 
 const prompt = inquirer.createPromptModule();
@@ -25,35 +25,15 @@ async function getSubject() {
 async function getMessage() {
    section("Email Message");
 
-   console.log(chalk.gray('Type "END" on a new line when finished.\n'));
+   const format = await getMessageFormat();
 
-   const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-   });
-
-   const lines = [];
-   let line = 1;
-
-   return new Promise((resolve) => {
-      rl.setPrompt(`${chalk.blue(line.toString().padStart(2))} │ `);
-      rl.prompt();
-
-      rl.on("line", (input) => {
-         if (input.trim().toUpperCase() === "END") {
-               rl.close();
-               resolve(lines.join("\n").trim());
-               return;
-         }
-
-         lines.push(input);
-
-         line++;
-
-         rl.setPrompt(`${chalk.blue(line.toString().padStart(2))} │ `);
-         rl.prompt();
-      });
-   });
+   if(format === 'text')
+   {
+      return acceptPlainMessages();
+   }
+   else {
+      return acceptHTMLMessages();
+   }
 }
 
 async function getAttachment() {
@@ -97,5 +77,4 @@ module.exports = {
    getMessage,
    getAttachment,
    getRecipient,
-   section
 };

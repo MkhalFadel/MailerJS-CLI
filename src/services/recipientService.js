@@ -1,13 +1,14 @@
 const { isValidEmail } = require("../utils/validator");
-const { getFilePath } = require("../utils/utils")
 const { getRecipient } = require("../prompts/prompts")
 const { section } = require("../utils/utils");
 const { success, error, info } = require("../utils/logger");
 const validator = require("validator");
 const fs = require("fs").promises;
+const chalk = require("chalk")
 
 async function acceptManualRecipients(email)
 {
+   console.log(chalk.grey("When you finish adding recipients press Enter..."));
    while (true) {
                   const recipient = await getRecipient();
                   
@@ -30,19 +31,12 @@ async function acceptManualRecipients(email)
 
 async function acceptImportedRecipients(email)
 {
-   while (true) {
-      const { path } = await getFilePath();
-      const data = await fs.readFile(path, 'utf8');
-
-      if(data.trim() === "") {
-         error("The imported file is empty. Please choose another file.");
-         continue;
-      }
+      const data = await readFile();
 
       const formattedEmails = parseRecipients(data);
       email.recipients = formattedEmails;
+      
       return email;
-   }
 }
 
 function parseRecipients(data) {

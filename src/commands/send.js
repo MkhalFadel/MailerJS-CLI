@@ -1,8 +1,8 @@
 const { showBanner } = require("../utils/banner");
-const { getSubject, getMessage, getAttachment, getRecipient, section } = require("../prompts/prompts");
+const { getSubject, getMessage, getAttachment, getRecipient } = require("../prompts/prompts");
 const chalk = require("chalk");
 const inquirer = require("inquirer")
-const { showSummary, emailFormatter } = require("../utils/utils");
+const { showSummary, emailFormatter, section } = require("../utils/utils");
 const { loadConfig } = require("../services/configService");
 const { sendEmail, createTransporter } = require("../services/emailService");
 const { success, error, info } = require("../utils/logger");

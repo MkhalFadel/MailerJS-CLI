@@ -25,9 +25,9 @@
 
 ## About
 
-MailerJS-CLI is a lightweight command-line tool for sending emails through SMTP directly from your terminal. It simplifies the process of configuring an email provider, composing messages, attaching files, and sending emails to one or multiple recipients through an interactive interface.
+MailerJS-CLI is a lightweight command-line tool for sending emails through SMTP. It provides a simple, interactive way to configure an email provider, compose plain text or HTML emails, attach files, and send emails to one or multiple recipients directly from your terminal.
 
-Whether you're sending job applications, notifications, newsletters, or bulk emails, MailerJS-CLI provides a fast, user-friendly workflow with built-in recipient validation, TXT file imports, SMTP connection testing, and persistent configuration to streamline repetitive email tasks.
+Whether you're sending job applications, notifications, newsletters, or bulk emails, MailerJS-CLI streamlines the process with recipient validation, TXT file imports, HTML email support, SMTP connection testing, and persistent configuration.
 
 
 ---
@@ -35,6 +35,8 @@ Whether you're sending job applications, notifications, newsletters, or bulk ema
 # ✨ Features
 
 * 📧 Interactive email sending
+* 📝 Plain text email support
+* 🌐 HTML email support
 * 👥 Send to multiple recipients
 * 📄 Import recipients from TXT files
 * 📎 File attachment support
@@ -107,8 +109,8 @@ mailer
 
 During the interactive session you can:
 
-* Enter recipients manually.
-* Import recipients from a TXT file.
+* Choose between plain text and HTML emails.
+* Enter recipients manually or import them from a TXT file.
 * Attach a file.
 * Review everything before sending.
 
@@ -156,21 +158,51 @@ After importing, MailerJS displays a summary including:
 
 ---
 
+# HTML Emails
+
+MailerJS-CLI supports sending HTML emails directly from an HTML file.
+
+Choose **HTML File** as the message format, provide the path to your HTML document, and MailerJS-CLI will load and send it as the email body.
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+  <body style="font-family: Arial, sans-serif;">
+    <h2>Welcome!</h2>
+    <p>This email was sent using <strong>MailerJS-CLI</strong>.</p>
+
+    <a href="https://github.com/MkhalFadel/MailerJS-CLI">
+      View the Project
+    </a>
+  </body>
+</html>
+```
+---
+
 # Example Workflow
 
 ```text
 $ mailer
 
 ✔ Subject
-✔ Message
+
+Choose message format
+
+❯ HTML File
+
+Enter HTML file path:
+newsletter.html
+
 ✔ Attachment
 
 How would you like to add recipients?
 
 ❯ Import from TXT file
 
-Enter file path:
-~/emails.txt
+Enter recipient file:
+emails.txt
 
 Recipients Imported
 
@@ -179,10 +211,13 @@ Valid: 117
 Invalid: 2
 Duplicates removed: 1
 
-Email Review
+Review
 
 Subject:
 Summer Newsletter
+
+Format:
+HTML
 
 Recipients:
 117

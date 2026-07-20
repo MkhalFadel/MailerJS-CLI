@@ -34,16 +34,20 @@ async function sendEmail(config, emailData, transporter)
          path: emailData.attachment
       }]
 
-   const mailOptions = {
+   let mailOptions = {
       from: {
          name: config.sender.name,
          address: config.sender.email
       },
       to: emailData.to,
       subject: emailData.subject,
-      text: emailData.message,
       attachments: attachment
    }
+
+   if(emailData.message.type === 'text')
+      mailOptions.text = emailData.message.message;
+   else 
+      mailOptions.html = emailData.message.message;
 
    try {
       const mailResult = await transporter.sendMail(mailOptions)

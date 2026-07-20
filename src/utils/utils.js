@@ -1,8 +1,9 @@
 const chalk = require("chalk");
-const fs = require("fs/promises")
+const fs = require("fs").promises
 const path = require("path");
 const providers = require("../config/providers")
 const inquirer = require("inquirer");
+const { error } = require("../utils/logger")
 
 const prompt = inquirer.createPromptModule()
 
@@ -17,7 +18,7 @@ function showSummary(data)
       console.log(chalk.gray("─".repeat(15)));
       console.log(chalk.cyan.bold("Email review"));
       console.log("\nSubject:\n",  chalk.grey(data.subject));
-      console.log("\nMessage:\n", chalk.grey(data.message));
+      console.log("\nMessage:\n", chalk.grey(data.message.message));
       console.log("\nAttachment:\n", chalk.grey(data.attachment || "none"));
       console.log("\nRecipients:")
 
@@ -115,4 +116,21 @@ async function getFilePath()
       return validationResult;
 }
 
-module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter, getFilePath}
+async function readFile()
+{
+      while(true)
+      {
+            const { path } = await getFilePath();
+            const data = await fs.readFile(path, 'utf8');
+
+            if(data.trim() === '')
+            {
+                  error("The file you provided is empty. Please select another one");
+                  continue;
+            }
+            
+            return data;
+      }
+}
+
+module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter, getFilePath, readFile}
