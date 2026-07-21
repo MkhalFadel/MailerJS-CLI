@@ -25,9 +25,9 @@
 
 ## About
 
-MailerJS-CLI is a lightweight command-line tool for sending emails through SMTP. It provides a simple, interactive way to configure an email provider, compose plain text or HTML emails, attach files, and send emails to one or multiple recipients directly from your terminal.
+MailerJS-CLI is a lightweight command-line tool for sending emails through SMTP. It provides a simple, interactive way to configure an email provider, compose plain text emails, HTML emails, or reusable HTML templates, attach files, and send emails to one or multiple recipients directly from your terminal.
 
-Whether you're sending job applications, notifications, newsletters, or bulk emails, MailerJS-CLI streamlines the process with recipient validation, TXT file imports, HTML email support, SMTP connection testing, and persistent configuration.
+Whether you're sending job applications, notifications, newsletters, or bulk emails, MailerJS-CLI streamlines the process with recipient validation, TXT file imports, HTML email support, reusable HTML templates, SMTP connection testing, and persistent configuration.
 
 
 ---
@@ -37,6 +37,8 @@ Whether you're sending job applications, notifications, newsletters, or bulk ema
 * 📧 Interactive email sending
 * 📝 Plain text email support
 * 🌐 HTML email support
+* 📄 Reusable HTML template support
+* 🏷️ Dynamic placeholder replacement
 * 👥 Send to multiple recipients
 * 📄 Import recipients from TXT files
 * 📎 File attachment support
@@ -109,7 +111,7 @@ mailer
 
 During the interactive session you can:
 
-* Choose between plain text and HTML emails.
+* Choose between plain text, HTML files, or reusable HTML templates.
 * Enter recipients manually or import them from a TXT file.
 * Attach a file.
 * Review everything before sending.
@@ -179,6 +181,43 @@ Example:
   </body>
 </html>
 ```
+---
+
+# HTML Templates
+
+MailerJS-CLI supports reusable HTML templates with dynamic placeholders.
+
+Templates are stored inside:
+
+~/.mailerjs/templates
+
+Example template:
+
+<h2>Hello {{name}}</h2>
+
+<p>
+Thank you for applying to {{company}}.
+</p>
+
+<p>
+Position: {{position}}
+</p>
+
+When sending an email, MailerJS-CLI automatically detects every placeholder and prompts you to provide a value.
+
+Example:
+
+name >
+John
+
+company >
+OpenAI
+
+position >
+Backend Developer
+
+The placeholders are replaced before the email is sent, allowing you to reuse the same template with different content.
+
 ---
 
 # Example Workflow
@@ -296,8 +335,6 @@ Example configuration:
 
 # Roadmap
 
-* HTML email support
-* Email templates
 * CSV recipient import
 * Multiple attachments
 * Default attachment directory

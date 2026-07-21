@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const chalk = require("chalk");
-const { acceptPlainMessages, acceptHTMLMessages, getMessageFormat } = require("./messagePrompts");
+const { acceptPlainMessages, acceptHTMLMessages, getMessageFormat, acceptHTMLTemplate } = require("./messagePrompts");
 const { validateFiles, section, getFilePath } = require("../utils/utils");
 
 const prompt = inquirer.createPromptModule();
@@ -28,12 +28,13 @@ async function getMessage() {
    const format = await getMessageFormat();
 
    if(format === 'text')
-   {
       return acceptPlainMessages();
-   }
-   else {
+   
+   else if(format === 'html') 
       return acceptHTMLMessages();
-   }
+
+   else
+      return acceptHTMLTemplate();
 }
 
 async function getAttachment() {

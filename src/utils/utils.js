@@ -149,4 +149,13 @@ function allowedFileType(filename, allowedExtension) {
       return ext === allowedExtension ? true : false;
 }
 
-module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter, getFilePath, readFile, allowedFileType}
+function createDataList(data)
+{
+      const dataList = data.map(d => {
+            return {name: d, value: d}
+      });
+
+      return dataList;
+}
+
+module.exports = {section, validateFiles, showSummary, resolveFilePath, getProvider, emailFormatter, getFilePath, readFile, allowedFileType, createDataList}
