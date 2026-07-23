@@ -27,12 +27,7 @@ async function sendEmail(config, emailData, transporter)
 {
    const spinner = ora(`Sending email to ${emailData.to}`).start();
 
-   let attachment = [];
-
-   if(emailData.attachment !== null)
-      attachment = [{
-         path: emailData.attachment
-      }]
+   const attachments = emailData.attachments.map(file => ({ path: file }));
 
    let mailOptions = {
       from: {
@@ -41,7 +36,7 @@ async function sendEmail(config, emailData, transporter)
       },
       to: emailData.to,
       subject: emailData.subject,
-      attachments: attachment
+      attachments: attachments
    }
 
    if(emailData.message.type === 'text')

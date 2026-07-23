@@ -19,7 +19,7 @@ function showSummary(data)
       console.log(chalk.cyan.bold("Email review"));
       console.log("\nSubject:\n",  chalk.grey(data.subject));
       console.log("\nMessage:\n", chalk.grey(data.message.message));
-      console.log("\nAttachment:\n", chalk.grey(data.attachment || "none"));
+      console.log("\nAttachment:\n", chalk.grey(data.attachments || "none"));
       console.log("\nRecipients:")
 
       if(data.recipients.length)
@@ -91,7 +91,7 @@ function emailFormatter(data)
             to: "",
             subject: data.subject,
             message: data.message,
-            attachment: data.attachment
+            attachments: data.attachments
       }
 
       return formattedData;

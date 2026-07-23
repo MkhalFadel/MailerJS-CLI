@@ -41,7 +41,7 @@ Whether you're sending job applications, notifications, newsletters, or bulk ema
 * 🏷️ Dynamic placeholder replacement
 * 👥 Send to multiple recipients
 * 📄 Import recipients from TXT files
-* 📎 File attachment support
+* 📎 Multiple attachment support
 * ⚙️ One-time SMTP configuration
 * ⚡ SMTP connection testing
 * 🌐 Built-in SMTP provider presets
@@ -225,57 +225,93 @@ The placeholders are replaced before the email is sent, allowing you to reuse th
 ```text
 $ mailer
 
-✔ Subject
+████╗   ████╗ █████╗ ██╗██╗     ███████╗██████╗      ██╗███████╗
+████╗ ████║██╔══██╗██║██║     ██╔════╝██╔══██╗     ██║██╔════╝
+██╔████╔██║███████║██║██║     █████╗  ██████╔╝     ██║███████╗
+██║╚██╔╝██║██╔══██║██║██║     ██╔══╝  ██╔══██╗██   ██║╚════██║
+██║ ╚═╝ ██║██║  ██║██║███████╗███████╗██║  ██║╚█████╔╝███████║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚════╝ ╚══════╝
 
-Choose message format
+Modern SMTP Email CLI
 
-❯ HTML File
+Email Subject
+─────────────
+? > Project Update
 
-Enter HTML file path:
-newsletter.html
+Email Message
+─────────────
+? Choose format type: Plain text
 
-✔ Attachment
+Type "END" on a new line when finished.
 
-How would you like to add recipients?
+ 1 │ Hello team,
+ 2 │
+ 3 │ The latest build has been deployed successfully.
+ 4 │ END
 
-❯ Import from TXT file
+Attachments
+───────────
+? Include attachments? Yes
 
-Enter recipient file:
-emails.txt
+? Enter file path:
+~/Documents/report.pdf
 
-Recipients Imported
+? Add another attachment? Yes
 
-Total: 120
-Valid: 117
-Invalid: 2
-Duplicates removed: 1
+? Enter file path:
+~/Documents/changelog.pdf
 
-Review
+? Add another attachment? No
+
+Recipients
+──────────
+? How would you like to add recipients?
+❯ Enter manually
+
+When you finish adding recipients press Enter...
+
+Recipient #1
+────────────
+? > john@example.com
+
+Recipient #2
+────────────
+? > jane@example.com
+
+Recipient #3
+────────────
+? >
+
+───────────────
+Email Review
 
 Subject:
-Summer Newsletter
+Project Update
 
-Format:
-HTML
+Message:
+Hello team,
+
+The latest build has been deployed successfully.
+
+Attachments:
+~/Documents/report.pdf
+~/Documents/changelog.pdf
 
 Recipients:
-117
+john@example.com
+jane@example.com
 
-Send emails? Yes
+? Send emails? Yes
 
-Sending email to john@example.com...
-✔ Email sent
-
-Sending email to jane@example.com...
-✔ Email sent
+✔ Email sent to john@example.com
+✔ Email sent to jane@example.com
 
 Summary
-
-Total Emails: 117
-Sent: 117
-Failed: 0
+───────
+ℹ Total Emails: 2
+✔ Sent: 2
+✖ Failed: 0
 ```
-
 ---
 
 # Gmail Users

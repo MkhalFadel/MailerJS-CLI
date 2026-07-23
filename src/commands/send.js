@@ -1,5 +1,5 @@
 const { showBanner } = require("../utils/banner");
-const { getSubject, getMessage, getAttachment, getRecipient } = require("../prompts/prompts");
+const { getSubject, getMessage, getAttachments, getRecipient } = require("../prompts/prompts");
 const chalk = require("chalk");
 const inquirer = require("inquirer")
 const { showSummary, emailFormatter, section } = require("../utils/utils");
@@ -16,7 +16,7 @@ async function runSend() {
       let email = {
             subject: await getSubject(),
             message: await getMessage(),
-            attachment: await getAttachment(),
+            attachments: await getAttachments(),
             recipients: []
       }
 

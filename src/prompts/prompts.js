@@ -1,7 +1,9 @@
 const inquirer = require("inquirer");
 const chalk = require("chalk");
+const path = require("path")
 const { acceptPlainMessages, acceptHTMLMessages, getMessageFormat, acceptHTMLTemplate } = require("./messagePrompts");
 const { validateFiles, section, getFilePath } = require("../utils/utils");
+const { info } = require("../utils/logger");
 
 const prompt = inquirer.createPromptModule();
 
@@ -37,22 +39,41 @@ async function getMessage() {
       return acceptHTMLTemplate();
 }
 
-async function getAttachment() {
-   section("Attachment");
+async function getAttachments() {
+   section("Attachments");
+
+   let attachments = [];
 
    const { include } = await prompt({
       type: 'confirm',
       name: 'include',
-      message: chalk.cyan("Include attachment?"),
+      message: chalk.cyan("Include attachments?"),
       default: true
    })
 
    if(!include)
-      return null;
-   
-   const result = await getFilePath()
+      return [];
 
-   return result.filePath;
+   while(true)
+   {
+      const result = await getFilePath();
+
+      info(`Added: ${path.basename(result.filePath)}`)
+
+      attachments.push(result.filePath);
+
+      const { another } = await prompt({
+         type: 'confirm',
+         name: "another",
+         message: chalk.cyan('Add another attachment?'),
+         default: true
+      })
+
+      if(!another)
+         break;
+   }
+   
+   return attachments;
 }
 
 let recipientNumber = 1;
@@ -76,6 +97,6 @@ async function getRecipient() {
 module.exports = {
    getSubject,
    getMessage,
-   getAttachment,
+   getAttachments,
    getRecipient,
 };
